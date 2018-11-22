@@ -1,0 +1,310 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Writing html! - Percy - Isomorphic Web Apps in Rust</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "../";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="../introduction.html">Introduction</a></li><li class="spacer"></li><li><a href="../views/index.html"><strong aria-hidden="true">1.</strong> Rendering Views</a></li><li><ol class="section"><li><a href="../virtual-dom/index.html"><strong aria-hidden="true">1.1.</strong> Virtual DOM</a></li><li><ol class="section"><li><a href="../virtual-dom/html-macro.html" class="active"><strong aria-hidden="true">1.1.1.</strong> Writing html!</a></li><li><a href="../virtual-dom/unit-testing-views.html"><strong aria-hidden="true">1.1.2.</strong> Unit Testing your Views</a></li></ol></li><li><a href="../views/server-side-rendering/index.html"><strong aria-hidden="true">1.2.</strong> Server Side Rendering (SSR)</a></li><li><ol class="section"><li><a href="../views/server-side-rendering/why-ssr.html"><strong aria-hidden="true">1.2.1.</strong> Why SSR</a></li><li><a href="../views/server-side-rendering/how-to-ssr.html"><strong aria-hidden="true">1.2.2.</strong> How to SSR</a></li></ol></li></ol></li><li><a href="../router/index.html"><strong aria-hidden="true">2.</strong> Router</a></li><li><a href="../css-in-rust.html"><strong aria-hidden="true">3.</strong> CSS in Rust</a></li><li><a href="../contributing/index.html"><strong aria-hidden="true">4.</strong> Contributing</a></li><li><ol class="section"><li><a href="../contributing/getting-started.html"><strong aria-hidden="true">4.1.</strong> Getting Started</a></li><li><a href="../contributing/ways-to-contribute.html"><strong aria-hidden="true">4.2.</strong> Types of Contributions</a></li><li><a href="../contributing/internal-design/index.html"><strong aria-hidden="true">4.3.</strong> Internal Design</a></li><li><ol class="section"><li><a href="../contributing/internal-design/sibling-text-nodes.html"><strong aria-hidden="true">4.3.1.</strong> Handling text siblings</a></li></ol></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Percy - Isomorphic Web Apps in Rust</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#writing-html" id="writing-html"><h1>Writing html!</h1></a>
+<a class="header" href="#text" id="text"><h3>Text</h3></a>
+<p>Text is rendered inside of a block <code>{}</code></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let view = html!{
+  &lt;div&gt; {&quot;Text goes here,&quot;} {&quot;or here&quot; &quot; or here!&quot;}&lt;/div&gt;
+};
+#}</code></pre></pre>
+<a class="header" href="#attributes" id="attributes"><h3>Attributes</h3></a>
+<p>At this time attributes must end with a <code>,</code> due to how our <code>html!</code> macro works.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let view = html!{
+  &lt;div id='my-id',&gt;&lt;/div&gt;
+};
+#}</code></pre></pre>
+<a class="header" href="#event-handlers" id="event-handlers"><h3>Event Handlers</h3></a>
+<p>We're currently adding support for all of the standard event handlers. If you run into an error trying to use
+an event please open an issue and we'll address it ASAP.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// This is an excerpt from crates/virtual-dom-rs/tests/events.
+// To see more example event usage go to that file.
+//
+// Or better yet take a look at the web_sys API:
+//   https://rustwasm.github.io/wasm-bindgen/api/web_sys/struct.MouseEvent.html
+
+wasm_bindgen_test_configure!(run_in_browser);
+
+#[wasm_bindgen_test]
+fn on_input() {
+    let text = Rc::new(RefCell::new(&quot;Start Text&quot;.to_string()));
+    let text_clone = Rc::clone(&amp;text);
+
+    let input = html! {
+     &lt;input
+         // On input we'll set our Rc&lt;RefCell&lt;String&gt;&gt; value to the input elements value
+         oninput=move |input_event: InputEvent| {
+            let input_elem = (input_event.as_ref() as &amp;Event).target().unwrap();
+
+            let input_elem = input_elem.dyn_into::&lt;HtmlInputElement&gt;().unwrap();
+
+            *text_clone.borrow_mut() = input_elem.value();
+         },
+         value=&quot;End Text&quot;,
+     &gt;
+     &lt;/input&gt;
+    };
+
+    let input_event = InputEvent::new(&quot;input&quot;).unwrap();
+    let input = input.create_element();
+
+    assert_eq!(&amp;*text.borrow(), &quot;Start Text&quot;);
+
+    // After dispatching the oninput event our `text` should have a value of the input elements value.
+    (web_sys::EventTarget::from(input))
+        .dispatch_event(input_event.as_ref() as &amp;web_sys::Event)
+        .unwrap();
+
+    assert_eq!(&amp;*text.borrow(), &quot;End Text&quot;);
+}
+#}</code></pre></pre>
+<a class="header" href="#custom-event-handlers" id="custom-event-handlers"><h3>Custom Event Handlers</h3></a>
+<p>Custom event handlers begin with a <code>!</code> and, like attributes must end with a <code>,</code>.</p>
+<p>Percy will attach event handlers your DOM nodes via <code>addEventListener</code></p>
+<p>So <code>!mycustomevent</code> becomes <code>element.addEventListener('mycustomevent', callback)</code></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+pub fn render (state: Rc&lt;State&gt;) -&gt; VirtualNode {
+  let state = Rc::clone(&amp;self.state);
+
+  let view = html! {
+      &lt;button
+        !mycustomevent=move|| {
+          state.borrow_mut().msg(Msg::ShowAlert)
+        },&gt;
+        { &quot;Dispatch 'mycustomevent' to me and I will do something!&quot; }
+     &lt;/button&gt;
+  };
+
+  view
+}
+#}</code></pre></pre>
+<a class="header" href="#nested-components" id="nested-components"><h3>Nested components</h3></a>
+<p><code>html!</code> calls can be nested.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let view1 = html!{ &lt;em&gt; &lt;/em&gt; };
+let view2 = html{ &lt;span&gt; &lt;/span&gt; }
+
+let parent_view = html! {
+  &lt;div&gt;
+    { view1 }
+    { view2 }
+    html! {
+      {&quot;Nested html! call&quot;}
+    }
+  &lt;/div&gt;
+};
+
+
+let html_string = parent_view.to_string();
+// Here's what the String looks like:
+// &lt;div&gt;&lt;em&gt;&lt;/em&gt;&lt;span&gt;&lt;/span&gt;Nested html! call&lt;/div&gt;
+#}</code></pre></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../virtual-dom/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../virtual-dom/unit-testing-views.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../virtual-dom/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../virtual-dom/unit-testing-views.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

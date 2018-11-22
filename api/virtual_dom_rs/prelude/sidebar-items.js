@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["VirtualNode","When building your views you'll typically use the `html!` macro to generate `VirtualNode`'s."]],"trait":[["View","A trait with common functionality for rendering front-end views."]]});

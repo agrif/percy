@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["TagType","When parsing our HTML we keep track of whether the last tag that we saw was an open or close tag."]]});
